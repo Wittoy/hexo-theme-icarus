@@ -127,22 +127,18 @@ a
 .button.is-link
     background-color: primary-color
 
-.link-muted
-    position: relative
-    &:after
-        content: ''
-        width: 0
-        height: 1px
-        background-color: primary-color
-        position: absolute
-        top: 100%
-        margin-top: 2px
-        left: 0
-        transition: all .2s ease
-    &:hover
+article.article, article.media
+    .title
+        width: fit-content
+    .title a
+        background-image: linear-gradient(transparent calc(100% - 1px), primary-color 1px)
+        background-repeat: no-repeat
+        background-size: 0 100%
+        transition: all .25s ease-in-out
+    .title:hover a
+        // override anotherr !important
         color: primary-color !important
-        &:after
-            width: 100%
+        background-size: 100% 100%
 
 .button.is-link:hover, .button.is-link.is-hovered
     background-color: primary-color-hover
