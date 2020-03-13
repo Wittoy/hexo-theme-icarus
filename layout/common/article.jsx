@@ -38,6 +38,11 @@ module.exports = class extends Component {
                         <div class="level-left">
                             {/* Date */}
                             <time class="level-item" dateTime={date_xml(page.date)} title={date_xml(page.date)}>{date(page.date)}</time>
+                            {/* Edit time */}
+                            {article && article.edittime && article.edittime === true && page.updated - page.date !== 0 ? <span class="level-item has-text-grey" title={page.updated}>
+                                {__('article.edited')}&nbsp;
+                                <time datetime={date_xml(page.updated)} title={page.updated}>{date(page.updated)}</time>
+                            </span> : null}
                             {/* Categories */}
                             {page.categories && page.categories.length ? <span class="level-item">
                                 {(() => {
@@ -80,6 +85,16 @@ module.exports = class extends Component {
                     </div> : null}
                     {/* "Read more" button */}
                     {index && page.excerpt ? <a class="article-more button is-small size-small" href={`${url_for(page.path)}#more`}>{__('article.more')}</a> : null}
+                    {/* Copyright */}
+                    {!index && page.layout === 'post' ?
+                    <ul class="post-copyright">
+                        <li><strong>本文标题：</strong><a href={url_for(page.permalink)}>{page.title}</a></li>
+                        <li><strong>本文作者：</strong><a href={url_for(config.url)}>{config.author}</a></li>
+                        <li><strong>发布时间：</strong>{date(page.date, 'YYYY-MM-DD HH:mm')}</li>
+                        {page.updated - page.date !== 0 ? <li><strong>最后更新：</strong>{date(page.updated, 'YYYY-MM-DD HH:mm')}</li> : null}
+                        <li><strong>本文链接：</strong><a href={url_for(page.permalink)}>{url_for(page.permalink)}</a></li>
+                        <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY 4.0</a> 许可协议。转载请注明出处！</li>
+                    </ul> : null}
                     {/* Share button */}
                     {!index ? <Share config={config} page={page} helper={helper} /> : null}
                 </article>
@@ -87,7 +102,8 @@ module.exports = class extends Component {
             {/* Donate button */}
             {!index ? <Donates config={config} helper={helper} /> : null}
             {/* Post navigation */}
-            {!index && (page.prev || page.next) ? <nav class="post-navigation mt-4 level is-mobile">
+            {!index && (page.prev || page.next) ? <nav class="post-navigation mt-4 level is-mobile card">
+                <div class="card-content">
                 {page.prev ? <div class="level-start">
                     <a class={`article-nav-prev level level-item${!page.prev ? ' is-hidden-mobile' : ''} link-muted`} href={url_for(page.prev.path)}>
                         <i class="level-item fas fa-chevron-left"></i>
@@ -100,6 +116,7 @@ module.exports = class extends Component {
                         <i class="level-item fas fa-chevron-right"></i>
                     </a>
                 </div> : null}
+                </div>
             </nav> : null}
             {/* Comment */}
             {!index ? <Comment config={config} page={page} helper={helper} /> : null}
