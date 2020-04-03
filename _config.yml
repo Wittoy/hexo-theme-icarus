@@ -120,6 +120,8 @@ article:
     readtime: true
     # Whether to show article edit time
     edittime: true
+    # og_image
+    og_image: '/images/og_image.png'
 # Search plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Search/
 search:

@@ -1,5 +1,14 @@
 (function ($) {
   /**
+   * 全国哀悼日 2020-04-04
+   */
+  var now = new Date();
+  var isMourning = now.getFullYear() === 2020 && now.getMonth() + 1 === 4 && now.getDate() === 4;
+  if (isMourning) {
+    document.body.classList.add('mourning');
+  }
+
+  /**
    * 等背景图片加载完成后再显示
    * https://www.imaegoo.com/
    */
@@ -10,7 +19,7 @@
     dongmanImg.src = 'https://api.btstu.cn/sjbz/?lx=dongman&format=images&method=mobile';
   }
   var dongmanInterval = setInterval(function () {
-    if (dongmanImg.complete) {
+    if (dongmanImg.complete && !isMourning) {
       document.body.classList.add('ready');
       clearInterval(dongmanInterval);
     }
