@@ -1,5 +1,6 @@
 /**
  * Paginator JSX component.
+ * https://github.com/ppoffice/hexo-component-inferno/blob/master/src/view/misc/paginator.jsx
  * @module view/misc/paginator
  */
 const { Component } = require('inferno');
@@ -29,7 +30,7 @@ module.exports = class extends Component {
         function pagination(c, m) {
             const current = c;
             const last = m;
-            const delta = 10;
+            const delta = 2;
             const left = current - delta;
             const right = current + delta + 1;
             const range = [];
