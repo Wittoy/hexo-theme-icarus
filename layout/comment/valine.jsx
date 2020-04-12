@@ -113,7 +113,7 @@ Valine.Cacheable = cacheComponent(Valine, 'comment.valine', props => {
         visitor: comment.visitor,
         highlight: comment.highlight,
         recordIp: comment.record_ip,
-        jsUrl: '/js/imaegoo/Valine.min.js'
+        jsUrl: '/js/imaegoo/valine.min.js'
     };
 });
 
