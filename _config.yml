@@ -230,14 +230,14 @@ widgets:
             Ray’s Blog: 'https://raycoder.me'
             一见倾心: 'https://bitcrush.top'
     # Google AdSense unit configurations
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: left
-        type: adsense
-        # AdSense client ID
-        client_id: 'ca-pub-5716633754544549'
-        # AdSense AD unit ID
-        slot_id: '6035187824'
+    #-
+    #    # Where should the widget be placed, left sidebar or right sidebar
+    #    position: left
+    #    type: adsense
+    #    # AdSense client ID
+    #    client_id: 'ca-pub-5716633754544549'
+    #    # AdSense AD unit ID
+    #    slot_id: '6035187824'
     # Table of contents widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
