@@ -1,8 +1,16 @@
 const { Component } = require('inferno');
 const MetaTags = require('hexo-component-inferno/lib/view/misc/meta');
-const OpenGraph = require('hexo-component-inferno/lib/view/misc/open_graph');
+const OpenGraph = require('../misc/open_graph');
 const StructuredData = require('hexo-component-inferno/lib/view/misc/structured_data');
 const Plugins = require('./plugins');
+const adjs = `window.onload = 
+function() {
+    setTimeout(function() {
+    let script = document.createElement("script");
+    script.setAttribute("async", "");
+    script.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+    document.body.appendChild(script);
+}, 2e3);}`;
 
 function getPageTitle(page, siteTitle, helper) {
     let title = page.title;
@@ -30,7 +38,7 @@ function getPageTitle(page, siteTitle, helper) {
 module.exports = class extends Component {
     render() {
         const { env, site, config, helper, page } = this.props;
-        const { url_for, cdn, fontcdn, iconcdn, is_post } = helper;
+        const { url_for, cdn, fontcdn, iconcdn, mycdn, is_post } = helper;
         const {
             url,
             meta_generator = true,
@@ -50,10 +58,9 @@ module.exports = class extends Component {
 
         const language = page.lang || page.language || config.language;
         const fontCssUrl = {
-            default: fontcdn('Ubuntu:wght@400;600&family=Source+Code+Pro', 'css2'),
+            default: fontcdn('Josefin+Sans', 'css2'),
             cyberpunk: fontcdn('Oxanium:wght@300;400;600&family=Roboto+Mono', 'css2')
         };
-
         let hlTheme, images;
         if (highlight && highlight.enable === false) {
             hlTheme = null;
@@ -109,7 +116,7 @@ module.exports = class extends Component {
             {meta && meta.length ? <MetaTags meta={meta} /> : null}
 
             <title>{getPageTitle(page, config.title, helper)}</title>
-
+            <meta name="keywords" content={page.keywords || config.keywords} />
             {typeof open_graph === 'object' ? <OpenGraph
                 type={open_graph.type || (is_post(page) ? 'article' : 'website')}
                 title={open_graph.title || page.title || config.title}
@@ -141,14 +148,12 @@ module.exports = class extends Component {
             {canonical_url ? <link rel="canonical" href={canonical_url} /> : null}
             {rss ? <link rel="alternative" href={url_for(rss)} title={config.title} type="application/atom+xml" /> : null}
             {favicon ? <link rel="icon" href={url_for(favicon)} /> : null}
+            <link rel="stylesheet" href={fontCssUrl[variant]} />
             <link rel="stylesheet" href={iconcdn()} />
             {hlTheme ? <link rel="stylesheet" href={cdn('highlight.js', '9.12.0', 'styles/' + hlTheme + '.css')} /> : null}
-            <link rel="stylesheet" href={fontCssUrl[variant]} />
-            <link rel="stylesheet" href={url_for('/css/' + variant + '.css')} />
+            <link rel="stylesheet" href={mycdn('css/' + variant + '.css')} />
             <Plugins site={site} config={config} helper={helper} page={page} head={true} />
-
-            {adsenseClientId ? <script data-ad-client={adsenseClientId}
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async={true}></script> : null}
+            {adsenseClientId ? <script dangerouslySetInnerHTML={{ __html: adjs }}></script> : null}
         </head>;
     }
 };

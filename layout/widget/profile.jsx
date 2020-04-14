@@ -40,7 +40,7 @@ class Profile extends Component {
                             {author ? <p class="title is-size-4 is-block line-height-inherit">{author}</p> : null}
                             {authorTitle ? <p class="is-size-6 is-block">{authorTitle}</p> : null}
                             {location ? <p class="is-size-6 is-flex justify-content-center">
-                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                <i class="iconfont icon-iclocationonpx"></i>
                                 <span>{location}</span>
                             </p> : null}
                         </div>
@@ -73,7 +73,7 @@ class Profile extends Component {
                     </div>
                 </nav>
                 {followLink ? <div class="level">
-                    <a class="level-item button is-primary is-rounded" href={followLink} target="_blank" rel="noopener">{followTitle}</a>
+                    <a class="level-item button is-primary is-rounded" href={followLink} target="_blank" rel="noopener"><i class='iconfont icon-follow'>&nbsp;</i>{followTitle}</a>
                 </div> : null}
                 {socialLinks ? this.renderSocialLinks(socialLinks) : null}
             </div>

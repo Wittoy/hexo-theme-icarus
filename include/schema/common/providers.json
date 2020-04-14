@@ -18,8 +18,14 @@
         },
         "iconcdn": {
             "type": "string",
-            "description": "Name or URL of the fontawesome icon font CDN provider",
-            "default": "fontawesome",
+            "description": "Name or URL of the fontawesome or iconfont CDN provider",
+            "default": "aliyun",
+            "nullable": true
+        },
+        "mycdn": {
+            "type": "string",
+            "description": "Name or URL of the customs CDN provider",
+            "default": "local",
             "nullable": true
         }
     }

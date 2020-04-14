@@ -43,6 +43,9 @@ class Navbar extends Component {
                         })}
                     </div> : null}
                     <div class="navbar-end">
+                        <a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;">
+                            <i class="iconfont icon-moon" id="night-icon"></i>
+                        </a>
                         {Object.keys(links).length ? <Fragment>
                             {Object.keys(links).map(name => {
                                 const link = links[name];
@@ -52,10 +55,10 @@ class Navbar extends Component {
                             })}
                         </Fragment> : null}
                         {showToc ? <a class="navbar-item is-hidden-tablet catalogue" title={tocTitle} href="javascript:;">
-                            <i class="fas fa-list-ul"></i>
+                            <i class="iconfont icon-listul"></i>
                         </a> : null}
                         {showSearch ? <a class="navbar-item search" title={searchTitle} href="javascript:;">
-                            <i class="fas fa-search"></i>
+                            <i class="iconfont icon-search"></i>
                         </a> : null}
                     </div>
                 </div>

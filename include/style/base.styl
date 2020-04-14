@@ -6,8 +6,8 @@ bulma-stylus-root = '../../../../node_modules/bulma-stylus/stylus'
 $body-size ?= 14px
 $body-background-color ?= #f7f7f7
 
-$family-sans-serif ?= Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif
-$family-code ?= 'Source Code Pro', monospace, 'Microsoft YaHei'
+$family-sans-serif ?= Josefin Sans, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif
+$family-code ?= 'Consolas', monospace, 'Microsoft YaHei'
 
 $primary ?= $blue
 $custom-colors ?= {
@@ -58,6 +58,7 @@ $colors = merge($colors, $custom-colors)
 @import bulma-stylus-root + '/form/_all'
 @import bulma-stylus-root + '/grid/_all'
 @import bulma-stylus-root + '/layout/_all'
+
 
 html
     -webkit-text-size-adjust: 100%

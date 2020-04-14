@@ -7,7 +7,7 @@ class BackToTop extends Component {
 
         return <Fragment>
             <a id="back-to-top" title={title} href="javascript:;">
-                <i class="fas fa-chevron-up"></i>
+            <i class="iconfont icon-Chevronupdouble-px"></i>
             </a>
             <script src={jsUrl} defer={true}></script>
         </Fragment>;
@@ -22,7 +22,7 @@ BackToTop.Cacheable = cacheComponent(BackToTop, 'plugin.backtotop', props => {
     }
     return {
         title: helper.__('plugin.backtotop'),
-        jsUrl: helper.url_for('/js/back_to_top.js')
+        jsUrl: helper.mycdn('js/back_to_top.js')
     };
 });
 

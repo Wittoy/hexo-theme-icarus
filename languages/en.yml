@@ -31,6 +31,7 @@ article:
     read: 'read'
     about: 'About'
     words: 'words'
+    edited: 'edited in'
 donate:
     title: 'Like this article? Support the author with'
     alipay: 'Alipay'
@@ -42,6 +43,7 @@ plugin:
     backtotop: 'Back to Top'
     visit: '%s visits'
     visitor: 'Visited by %s users'
+    visits: 'Viewed by %s users'
 search:
     search: 'Search'
     hint: 'Type something...'

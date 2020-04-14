@@ -17,20 +17,21 @@ common:
     prev: '上一页'
     next: '下一页'
 widget:
-    follow: '关注我'
+    follow: 'About Me'
     recents: '最新文章'
     links: '链接'
     tag_cloud: '标签云'
     catalogue: '目录'
     subscribe_email: '订阅更新'
     subscribe: '订阅'
-    adsense: '广告'
+    adsense: '广告位'
 article:
     more: '阅读更多'
     comments: '评论'
     read: '读完'
     about: '大约'
     words: '个字'
+    edited: '编辑于'
 donate:
     title: '喜欢这篇文章？打赏一下作者吧'
     alipay: '支付宝'
@@ -41,7 +42,8 @@ donate:
 plugin:
     backtotop: '回到顶端'
     visit: '%s次访问'
-    visitor: '共%s个访客'
+    visitor: '访客统计：%s次'
+    visits: '浏览统计：%s次'
 search:
     search: '搜索'
     hint: '想要查找什么...'

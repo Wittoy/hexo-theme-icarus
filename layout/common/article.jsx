@@ -33,17 +33,30 @@ module.exports = class extends Component {
                     {index ? <a href={url_for(page.link || page.path)} class="image is-7by3">
                         <img class="thumbnail" src={get_thumbnail(page)} alt={page.title || get_thumbnail(page)} />
                     </a> : <span class="image is-7by3">
-                        <img class="thumbnail" src={get_thumbnail(page)} alt={page.title || get_thumbnail(page)} />
-                    </span>}
+                            <img class="thumbnail" src={get_thumbnail(page)} alt={page.title || get_thumbnail(page)} />
+                        </span>}
                 </div> : null}
                 {/* Metadata */}
                 <article class={`card-content article${'direction' in page ? ' ' + page.direction : ''}`} role="article">
-                    {page.layout !== 'page' ? <div class="article-meta size-small is-uppercase level is-mobile">
-                        <div class="level-left">
+                            {/* Title */}
+                            <h1 class="title is-3 is-size-4-mobile">
+                                {index ? <a class="link-muted" href={url_for(page.link || page.path)}>{page.title}</a> : page.title}
+                            </h1>
+                        {page.layout !== 'page' ? <div class="article-meta size-small is-uppercase level is-mobile">
+                            <div class="level-left">
+                            {/*Page Top*/}
+                            {page.top > 0 ?
+                                <div class="level-item tag is-danger" style="background-color: #3273dc;">置顶</div> : null}
                             {/* Date */}
-                            <time class="level-item" dateTime={date_xml(page.date)} title={date_xml(page.date)}>{date(page.date)}</time>
+                            <time class="level-item" dateTime={date_xml(page.date)} title={date_xml(page.date)}><i class="iconfont icon--appointmentcalendardatedayiconoteka">&nbsp;</i>{date(page.date)}</time>
+                            {/* Edit time */}
+                            {article && article.edittime && article.edittime === true && page.updated - page.date !== 0 ? <span class="level-item has-text-grey" title={page.updated}>
+                            <i class="iconfont icon--availablecalendardatedayeventiconot">&nbsp;</i>
+                                {__('article.edited')}&nbsp;
+                                <time datetime={date_xml(page.updated)} title={page.updated}>{date(page.updated)}</time>
+                            </span> : null}
                             {/* Categories */}
-                            {page.categories && page.categories.length ? <span class="level-item">
+                            {page.categories && page.categories.length ? <span class="level-item"><i class="iconfont icon-folder-open">&nbsp;</i>
                                 {(() => {
                                     const categories = [];
                                     page.categories.forEach((category, i) => {
@@ -55,8 +68,12 @@ module.exports = class extends Component {
                                     return categories;
                                 })()}
                             </span> : null}
+                            </div>
+                        </div> : null}
+                    {page.layout !== 'page' ? <div class="article-meta size-small is-uppercase level is-mobile">
+                        <div class="level-left">
                             {/* Read time */}
-                            {article && article.readtime && article.readtime === true ? <span class="level-item">
+                            {article && article.readtime && article.readtime === true ? <span class="level-item"><i class="iconfont icon-clock">&nbsp;</i>
                                 {(() => {
                                     const words = getWordCount(page._content);
                                     const time = moment.duration((words / 150.0) * 60, 'seconds');
@@ -65,25 +82,31 @@ module.exports = class extends Component {
                             </span> : null}
                             {/* Visitor counter */}
                             {!index && plugins && plugins.busuanzi === true ? <span class="level-item" id="busuanzi_container_page_pv" dangerouslySetInnerHTML={{
-                                __html: '<i class="far fa-eye"></i>' + _p('plugin.visit', '&nbsp;&nbsp;<span id="busuanzi_value_page_pv">0</span>')
+                                __html: '<i class="iconfont icon-eye"></i>' + _p('plugin.visit', '&nbsp;&nbsp;<span id="busuanzi_value_page_pv">0</span>')
                             }}></span> : null}
                         </div>
                     </div> : null}
-                    {/* Title */}
-                    <h1 class="title is-3 is-size-4-mobile">
-                        {index ? <a class="link-muted" href={url_for(page.link || page.path)}>{page.title}</a> : page.title}
-                    </h1>
                     {/* Content/Excerpt */}
                     <div class="content" dangerouslySetInnerHTML={{ __html: index && page.excerpt ? page.excerpt : page.content }}></div>
+                    {/* Copyright */}
+                    {!index && page.layout === 'post' ?
+                    <ul class="post-copyright">
+                        <li><strong>本文标题：</strong><a href={url_for(page.permalink)}>{page.title}</a></li>
+                        <li><strong>本文作者：</strong><a href={url_for(config.url)}>{config.author}</a></li>
+                        <li><strong>发布时间：</strong>{date(page.date, 'YYYY-MM-DD HH:mm')}</li>
+                        {page.updated - page.date !== 0 ? <li><strong>最后更新：</strong>{date(page.updated, 'YYYY-MM-DD HH:mm')}</li> : null}
+                        <li><strong>本文链接：</strong><a href={url_for(page.permalink)}>{url_for(page.permalink)}</a></li>
+                        <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY 4.0</a> 许可协议。转载请注明出处！</li>
+                    </ul> : null}
                     {/* Tags */}
                     {!index && page.tags && page.tags.length ? <div class="article-tags size-small is-uppercase mb-4">
-                        <span class="mr-2">#</span>
+                        <span class="mr-2"><i class='iconfont icon-tag'></i></span>
                         {page.tags.map(tag => {
                             return <a class="link-muted mr-2" rel="tag" href={url_for(tag.path)}>{tag.name}</a>;
                         })}
                     </div> : null}
                     {/* "Read more" button */}
-                    {index && page.excerpt ? <a class="article-more button is-small size-small" href={`${url_for(page.path)}#more`}>{__('article.more')}</a> : null}
+                    {index && page.excerpt ? <a class="article-more button is-small size-small" href={`${url_for(page.path)}#more`}><i class="iconfont icon-book">&nbsp;</i>{__('article.more')}</a> : null}
                     {/* Share button */}
                     {!index ? <Share config={config} page={page} helper={helper} /> : null}
                 </article>
@@ -91,20 +114,20 @@ module.exports = class extends Component {
             {/* Donate button */}
             {!index ? <Donates config={config} helper={helper} /> : null}
             {/* Post navigation */}
-            {!index && (page.prev || page.next) ? <nav class="post-navigation mt-4 level is-mobile">
+            {!index && (page.prev || page.next) ? <div class="card"><nav class="post-navigation mt-4 level is-mobile card-content">
                 {page.prev ? <div class="level-start">
                     <a class={`article-nav-prev level level-item${!page.prev ? ' is-hidden-mobile' : ''} link-muted`} href={url_for(page.prev.path)}>
-                        <i class="level-item fas fa-chevron-left"></i>
+                        <i class="level-item iconfont icon-Controlchevronleft-px"></i>
                         <span class="level-item">{page.prev.title}</span>
                     </a>
                 </div> : null}
                 {page.next ? <div class="level-end">
                     <a class={`article-nav-next level level-item${!page.next ? ' is-hidden-mobile' : ''} link-muted`} href={url_for(page.next.path)}>
                         <span class="level-item">{page.next.title}</span>
-                        <i class="level-item fas fa-chevron-right"></i>
+                        <i class="level-item iconfont icon-Controlchevronright-px"></i>
                     </a>
                 </div> : null}
-            </nav> : null}
+            </nav></div> : null}
             {/* Comment */}
             {!index ? <Comment config={config} page={page} helper={helper} /> : null}
         </Fragment>;
