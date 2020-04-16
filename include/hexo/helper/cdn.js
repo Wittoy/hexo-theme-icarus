@@ -15,6 +15,7 @@ const PROVIDERS = {
         unpkg: 'https://unpkg.com/${ package }@${ version }/${ filename }'
     },
     FONT: {
+        host: '/css/font/font.css',
         google: 'https://fonts.googleapis.com/${ type }?family=${ fontname }',
         loli: 'https://fonts.loli.net/${ type }?family=${ fontname }'
     },

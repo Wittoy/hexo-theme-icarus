@@ -11,43 +11,43 @@ head:
     # URL or path to the website's icon
     favicon: /favicon.ico
     # Canonical URL of the current page
-    canonical_url: 
+    #canonical_url: 
     # Open Graph metadata
     # https://hexo.io/docs/helpers.html#open-graph
-    open_graph:
+    #open_graph:
         # Page title (og:title) (optional)
         # You should leave this blank for most of the time
-        title: 
+        #title: 
         # Page type (og:type) (optional)
         # You should leave this blank for most of the time
-        type: blog
+        #type: blog
         # Page URL (og:url) (optional)
         # You should leave this blank for most of the time
-        url: 
+        #url: 
         # Page cover (og:image) (optional) Default to the Open Graph image or thumbnail of the page
         # You should leave this blank for most of the time
-        image: 
+        #image: 
         # Site name (og:site_name) (optional)
         # You should leave this blank for most of the time
-        site_name: 
+        #site_name: 
         # Page author (article:author) (optional)
         # You should leave this blank for most of the time
-        author: 
+        #author: 
         # Page description (og:description) (optional)
         # You should leave this blank for most of the time
-        description: 
+        #description: 
         # Twitter card type (twitter:card)
-        twitter_card: 
+        #twitter_card: 
         # Twitter ID (twitter:creator)
-        twitter_id: 
+        #twitter_id: 
         # Twitter ID (twitter:creator)
-        twitter_site: 
+        #twitter_site: 
         # Google+ profile link (deprecated)
-        google_plus: 
+        #google_plus: 
         # Facebook admin ID
-        fb_admins: 
+        #fb_admins: 
         # Facebook App ID
-        fb_app_id: 
+        #fb_app_id: 
     # Structured data of the page
     # https://developers.google.com/search/docs/guides/intro-structured-data
     structured_data:
@@ -301,6 +301,6 @@ providers:
     # Name or URL template of the JavaScript and/or stylesheet CDN provider
     cdn: jsdelivr
     # Name or URL template of the webfont CDN provider
-    #fontcdn: loli
+    fontcdn: host
     # Name or URL of the fontawesome icon font CDN provider
     iconcdn: host
