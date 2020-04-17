@@ -39,4 +39,12 @@
   }
   fixLeftColumnTop();
   $(window).resize(fixLeftColumnTop);
+
+  /**
+   * 初始化 sentry 错误跟踪
+   * https://www.imaegoo.com/
+   */
+  Sentry.init({
+    dsn: 'https://317bd55f1aba4a83a10a76831f472b97@o379152.ingest.sentry.io/5203533'
+  });
 }(jQuery));

@@ -41,7 +41,8 @@ module.exports = class extends Component {
                 <Scripts site={site} config={config} helper={helper} page={page} />
                 <Search config={config} helper={helper} />
 
-                <script type="text/javascript" src="/js/imaegoo/sticky.js"></script>
+                <script src="https://browser.sentry-cdn.com/5.15.4/bundle.min.js" integrity="sha384-Nrg+xiw+qRl3grVrxJtWazjeZmUwoSt0FAVsbthlJ5OMpx0G08bqIq3b/v0hPjhB" crossorigin="anonymous"></script>
+                <script type="text/javascript" src="/js/imaegoo/imaegoo.js"></script>
                 <script type="text/javascript" src="/js/imaegoo/universe.js"></script>
                 <script type="text/javascript" src="/js/live2d/autoload.js"></script>
             </body>
