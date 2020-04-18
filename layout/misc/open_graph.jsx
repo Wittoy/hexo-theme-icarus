@@ -179,18 +179,15 @@ module.exports = /*#__PURE__*/function (_Component) {
         images = [images];
       }
 
-      images = images.map(function (path) {
+      images.map(path => {
         if (!urlFn.parse(path).host) {
           // resolve `path`'s absolute path relative to current page's url
           // `path` can be both absolute (starts with `/`) or relative.
           return urlFn.resolve(url, path);
         }
-
-        htmlTags.push((0, _inferno.createVNode)(1, "meta", null, null, 1, {
-          "property": 'og:image',
-          "content": path
-        }));
-        return path;
+      return path;
+      }).forEach(path => {
+        htmlTags.push(<meta property='og:image' content={path} />);
       });
 
       if (date && (moment.isMoment(date) || moment.isDate(date)) && !isNaN(date.valueOf())) {

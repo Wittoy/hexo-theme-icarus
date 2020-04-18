@@ -36,7 +36,7 @@ body:before
     background: url("https://api.btstu.cn/sjbz/?lx=dongman&format=images&method=pc") center 0 no-repeat
     background-size: cover
     @media screen and (max-width: screen-tablet - 1)
-        background-image: url("https://api.btstu.cn/sjbz/?lx=dongman&format=images&method=mobile")
+        background-image: url()
 
 // Nav bar fixes
 .navbar
@@ -344,12 +344,12 @@ body.night
 
     // quote
     .content blockquote,
-    .post-copyright,
-    .mdui-card-header
+    .mdui-card
+        background-color: dark-primary-color
+    .post-copyright
         background-color: dark-primary-color
         border-color: dark-primary-color-hover
         border-left: 3px solid #ff170070
-
     // table
     .content table thead td,
     .content table thead th

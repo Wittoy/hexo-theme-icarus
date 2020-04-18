@@ -23,7 +23,7 @@
     function switchNight() {
         isNight = isNight ? isNight.toString() !== 'true' : true;
         applyNight(isNight);
-        localStorage.setItem('night', isNight, expireTime1H);
+        localStorage.setItem('night', isNight);
     }
   
     findNightNav();
