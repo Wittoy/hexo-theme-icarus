@@ -136,6 +136,7 @@ comment:
     notify: false                               # (optional) receive email notification
     verify: false                               # (optional) show verification code
     placeholder: '说点什么吧！（提示：填写邮箱即可接收回复通知~）'
+    visitor: true
     record_ip: true
 # Donate plugin configurations
 donates:
