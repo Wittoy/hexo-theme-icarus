@@ -5,7 +5,7 @@ const logger = require('hexo-log')();
  * Print welcome message
  */
 logger.info(`===================================
-© 2019 iMaeGoo - Powered by Hexo & Icarus
+iMaeGoo's Blog - Powered by Hexo & Icarus
 =========================================`);
 
 /**
