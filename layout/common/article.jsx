@@ -47,6 +47,8 @@ module.exports = class extends Component {
                                 {__('article.edited')}&nbsp;
                                 <time datetime={date_xml(page.updated)} title={page.updated}>{date(page.updated)}</time>
                             </span> : null}
+                            {/* author */}
+                            {page.author ? <span class="level-item"> {page.author} </span> : null}
                             {/* Categories */}
                             {page.categories && page.categories.length ? <span class="level-item">
                                 {(() => {
