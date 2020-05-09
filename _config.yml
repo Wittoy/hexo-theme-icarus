@@ -87,9 +87,9 @@ navbar:
         关于: /about/
     # Links to be shown on the right of the navigation bar
     links:
-        Admin:
-            icon: fas fa-cog
-            url: 'https://admin.imaegoo.com'
+        # Admin:
+        #     icon: fas fa-cog
+        #     url: 'https://admin.imaegoo.com'
 # Page footer configurations
 footer:
     # Links to be shown on the right of the footer section

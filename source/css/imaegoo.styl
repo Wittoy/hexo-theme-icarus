@@ -54,8 +54,20 @@ body.ready:before
             color: white
             background-color: primary-color
     @media screen and (min-width: screen-desktop)
-        .navbar-start
-            margin-left: 2em
+        .navbar-menu
+            .navbar-start
+                margin-left: 2em
+    @media screen and (max-width: screen-tablet - 1)
+        .navbar-menu
+            flex-direction: column
+            .navbar-start
+            .navbar-end
+                justify-content: center
+                overflow-x: auto
+                .navbar-item
+                    padding: .5rem
+            .navbar-end
+                padding-bottom: .5rem
 
 // Card fixes
 .card
@@ -158,7 +170,7 @@ article
 
 // Fix fontawsome icon 不等宽
 .navbar-main .navbar-menu .navbar-end .navbar-item
-    width 35px
+    min-width 35px
     justify-content: center
     -webkit-justify-content: center
 

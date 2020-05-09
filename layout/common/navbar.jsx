@@ -47,6 +47,10 @@ class Navbar extends Component {
                         })}
                     </div> : null}
                     <div class="navbar-end">
+                        {showToc ? <a class="navbar-item is-hidden-tablet catalogue" title={tocTitle} href="javascript:;">
+                            <i class="fas fa-list-ul"></i>
+                            <span>&nbsp;&nbsp;目录</span>
+                        </a> : null}
                         <a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;">
                             <i class="fas fa-moon" id="night-icon"></i>
                         </a>
@@ -58,9 +62,6 @@ class Navbar extends Component {
                                 </a>;
                             })}
                         </Fragment> : null}
-                        {showToc ? <a class="navbar-item is-hidden-tablet catalogue" title={tocTitle} href="javascript:;">
-                            <i class="fas fa-list-ul"></i>
-                        </a> : null}
                         {showSearch ? <a class="navbar-item search" title={searchTitle} href="javascript:;">
                             <i class="fas fa-search"></i>
                         </a> : null}
