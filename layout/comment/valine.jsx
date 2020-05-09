@@ -40,6 +40,9 @@ class Valine extends Component {
             visitor = false,
             highlight = true,
             recordIp = false,
+            emojiCDN = '',
+            emojiMaps = {},
+            requiredFields = [],
             jsUrl
         } = this.props;
         if (!appId || !appKey) {
@@ -61,7 +64,10 @@ class Valine extends Component {
             pageSize: ${pageSize},
             visitor: ${visitor},
             highlight: ${highlight},
-            recordIP: ${recordIp}
+            recordIP: ${recordIp},
+            emojiCDN: '${emojiCDN}',
+            emojiMaps: ${JSON.stringify(emojiMaps)},
+            requiredFields: ${JSON.stringify(requiredFields)}
         });`;
         return <Fragment>
             <div id="valine-thread" class="content"></div>
@@ -113,7 +119,10 @@ Valine.Cacheable = cacheComponent(Valine, 'comment.valine', props => {
         visitor: comment.visitor,
         highlight: comment.highlight,
         recordIp: comment.record_ip,
-        jsUrl: 'https://cdn.jsdelivr.net/gh/imaegoo/Valine@1.3.10.1/dist/Valine.min.js'
+        emojiCDN: comment.emoji_cdn,
+        emojiMaps: comment.emoji_maps,
+        requiredFields: comment.required_fields,
+        jsUrl: helper.cdn('valine', '1.4.14', 'dist/Valine.min.js')
     };
 });
 
