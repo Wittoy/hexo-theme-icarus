@@ -42,6 +42,7 @@ class Valine extends Component {
             recordIp = false,
             emojiCDN = '',
             emojiMaps = {},
+            enableQQ = false,
             requiredFields = [],
             jsUrl
         } = this.props;
@@ -67,6 +68,7 @@ class Valine extends Component {
             recordIP: ${recordIp},
             emojiCDN: '${emojiCDN}',
             emojiMaps: ${JSON.stringify(emojiMaps)},
+            enableQQ: ${enableQQ},
             requiredFields: ${JSON.stringify(requiredFields)}
         });`;
         return <Fragment>
@@ -121,6 +123,7 @@ Valine.Cacheable = cacheComponent(Valine, 'comment.valine', props => {
         recordIp: comment.record_ip,
         emojiCDN: comment.emoji_cdn,
         emojiMaps: comment.emoji_maps,
+        enableQQ: comment.enable_qq,
         requiredFields: comment.required_fields,
         jsUrl: helper.cdn('valine', '1.4.14', 'dist/Valine.min.js')
     };
