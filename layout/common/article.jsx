@@ -45,7 +45,7 @@ module.exports = class extends Component {
                             {/* Edit time */}
                             {article && article.edittime && article.edittime === true && page.updated - page.date !== 0 ? <span class="level-item has-text-grey" title={page.updated}>
                                 {__('article.edited')}&nbsp;
-                                <time datetime={date_xml(page.updated)} title={page.updated}>{date(page.updated)}</time>
+                                <time datetime={date_xml(page.updated)} title={date_xml(page.updated)}>{date(page.updated)}</time>
                             </span> : null}
                             {/* author */}
                             {page.author ? <span class="level-item"> {page.author} </span> : null}
