@@ -246,7 +246,7 @@ widgets:
                 url: 'https://twitter.com/iMaeGoo'
             QQ:
                 icon: fab fa-qq
-                url: 'http://sighttp.qq.com/msgrd?v=1&uin=29553407'
+                url: 'tencent://message/?uin=29553407&Site=www.imaegoo.com&Menu=yes'
             Mail:
                 icon: fas fa-envelope
                 url: 'mailto:mail@imaegoo.com'
