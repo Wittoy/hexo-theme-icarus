@@ -9,7 +9,7 @@ class BackToTop extends Component {
             <a id="back-to-top" title={title} href="javascript:;">
             <i class="iconfont icon-Chevronupdouble-px"></i>
             </a>
-            <script src={jsUrl} defer={true}></script>
+            <script src={jsUrl} defer></script>
         </Fragment>;
 
     }

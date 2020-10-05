@@ -15,6 +15,17 @@ class Footer extends Component {
             visitsCounterTitle
         } = this.props;
 
+        let footerLogo = '';
+        if (logo) {
+            if (logo.text) {
+                footerLogo = logo.text;
+            } else {
+                footerLogo = <img src={logoUrl} alt={siteTitle} height="28" />;
+            }
+        } else {
+            footerLogo = siteTitle;
+        }
+
         const timejs = `var now = new Date();
         function createtime() {
             var grt= new Date("10/13/2018 09:38:00");
@@ -33,7 +44,7 @@ class Footer extends Component {
                 <div class="level">
                     <div class="level-start">
                         <a class="footer-logo is-block mb-2" href={siteUrl}>
-                            {logo && logo.text ? logo.text : <img src={logoUrl} alt={siteTitle} height="28" />}
+                            {footerLogo}
                         </a>
                         <p class="size-small">
                             <span dangerouslySetInnerHTML={{ __html: `&copy;&nbsp;2018&nbsp;-&nbsp;${siteYear}` }}></span>
@@ -42,7 +53,10 @@ class Footer extends Component {
                             {showVisitCounter ? <div class="size-small"><i class="iconfont icon-UserService">&nbsp;</i><span id="busuanzi_container_site_uv" dangerouslySetInnerHTML={{ __html: visitorCounterTitle }}></span>&nbsp;
                             <i class="iconfont icon-eye">&nbsp;</i><span id="busuanzi_container_site_pv" dangerouslySetInnerHTML={{ __html: visitsCounterTitle }}></span></div> : null}
                             <script dangerouslySetInnerHTML={{ __html: timejs }}></script>
-                            <div class="size-small"><i class="iconfont icon-glasses">&nbsp;</i><span id="timeDate"></span><span id="times"></span></div>
+                            <div class="size-small"><span id="timeDate"></span><span id="times"></span></div>
+                            <div class="size-small"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">鲁ICP备20025514号</a></div>
+                            {/* <a class="footer-logo" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"><img src="https://cdn.jsdelivr.net/gh/1rz/static/images/upyun.webp"/></a> */}
+                            
                         </p>
                     </div>
                     <div class="level-end">
@@ -87,7 +101,7 @@ module.exports = cacheComponent(Footer, 'common.footer', props => {
         siteYear: date(new Date(), 'YYYY'),
         links,
         showVisitCounter: plugins && plugins.busuanzi === true,
-        visitorCounterTitle: _p('plugin.visitor', '<span id="busuanzi_value_site_uv">0</span>'),
-        visitsCounterTitle: _p('plugin.visits', '<span id="busuanzi_value_site_pv">0</span>')
+        visitorCounterTitle: _p('plugin.visitor_count', '<span id="busuanzi_value_site_uv">0</span>'),
+        visitsCounterTitle: _p('plugin.visits_count', '<span id="busuanzi_value_site_pv">0</span>')
     };
 });

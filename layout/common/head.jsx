@@ -37,11 +37,10 @@ function getPageTitle(page, siteTitle, helper) {
 
 module.exports = class extends Component {
     render() {
-        const { env, site, config, helper, page } = this.props;
+        const { site, config, helper, page } = this.props;
         const { url_for, cdn, fontcdn, iconcdn, mycdn, is_post } = helper;
         const {
             url,
-            meta_generator = true,
             head = {},
             article,
             highlight,
@@ -72,8 +71,10 @@ module.exports = class extends Component {
 
         if (typeof page.og_image === 'string') {
             images = [page.og_image];
-        } else if (helper.has_thumbnail(page)) {
-            images = [helper.get_thumbnail(page)];
+        } else if (typeof page.cover === 'string') {
+            images = [url_for(page.cover)];
+        } else if (typeof page.thumbnail === 'string') {
+            images = [url_for(page.thumbnail)];
         } else if (article && typeof article.og_image === 'string') {
             images = [article.og_image];
         } else if (page.content && page.content.includes('<img')) {
@@ -113,10 +114,8 @@ module.exports = class extends Component {
 
         return <head>
             <meta charset="utf-8" />
-            {meta_generator ? <meta name="generator" content={`Hexo ${env.version}`} /> : null}
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
             {meta && meta.length ? <MetaTags meta={meta} /> : null}
-
             <title>{getPageTitle(page, config.title, helper)}</title>
             <meta name="keywords" content={page.keywords || config.keywords} />
             {typeof open_graph === 'object' && open_graph !== null ? <OpenGraph
@@ -125,8 +124,8 @@ module.exports = class extends Component {
                 date={page.date}
                 updated={page.updated}
                 author={open_graph.author || config.author}
-                description={open_graph.description || page.description || page.excerpt || page.content || config.description}
-                keywords={page.keywords || (page.tags && page.tags.length ? page.tags : undefined) || config.keywords}
+                description={page.description || page.excerpt || page.content || open_graph.description || config.description}
+                keywords={(page.tags && page.tags.length ? page.tags : undefined) || config.keywords}
                 url={open_graph.url || page.permalink || url}
                 images={openGraphImages}
                 siteName={open_graph.site_name || config.title}
@@ -148,7 +147,7 @@ module.exports = class extends Component {
                 images={structuredImages} /> : null}
 
             {canonical_url ? <link rel="canonical" href={canonical_url} /> : null}
-            {rss ? <link rel="alternative" href={url_for(rss)} title={config.title} type="application/atom+xml" /> : null}
+            {rss ? <link rel="alternate" href={url_for(rss)} title={config.title} type="application/atom+xml" /> : null}
             {favicon ? <link rel="icon" href={url_for(favicon)} /> : null}
             <link rel="stylesheet" href={fontCssUrl[variant]} />
             <link rel="stylesheet" href={iconcdn()} />

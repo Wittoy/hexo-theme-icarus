@@ -34,7 +34,10 @@ class Valine extends Component {
             avatar = 'mm',
             avatarForce = false,
             meta = ['nick', 'mail', 'link'],
+            requiredFields = [],
+            serverURLs = 'http[s]://[tab/us].avoscloud.com',
             pageSize = 10,
+            enableQQ = false,
             visitor = false,
             highlight = true,
             recordIp = false,
@@ -47,21 +50,24 @@ class Valine extends Component {
             </div>;
         }
         const js = `new Valine({
-            el: '#valine-thread' ,
+            el: '#valine-thread',
             appId: '${appId}',
             appKey: '${appKey}',
             placeholder: '${placeholder}',
             avatar: '${avatar}',
             avatarForce: ${avatarForce},
             meta: ${JSON.stringify(meta)},
+            requiredFields: ${JSON.stringify(requiredFields)},
+            serverURLs: '${serverURLs}',
             pageSize: ${pageSize},
+            enableQQ: ${enableQQ},
             visitor: ${visitor},
             highlight: ${highlight},
             recordIP: ${recordIp}
         });`;
         return <Fragment>
             <div id="valine-thread" class="content"></div>
-            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
             <script src={jsUrl}></script>
             <script dangerouslySetInnerHTML={{ __html: js }}></script>
         </Fragment>;
@@ -103,11 +109,14 @@ Valine.Cacheable = cacheComponent(Valine, 'comment.valine', props => {
         avatar: comment.avatar,
         avatarForce: comment.avatar_force,
         meta: comment.meta,
+        requiredFields: comment.requiredFields,
+        serverURLs: comment.serverURLs,
         pageSize: comment.page_size,
+        enableQQ: comment.enableQQ,
         visitor: comment.visitor,
         highlight: comment.highlight,
         recordIp: comment.record_ip,
-        jsUrl: helper.mycdn('js/Valine.min.js')
+        jsUrl: helper.url_for('https://cdn.jsdelivr.net/gh/1rz/static@master/hexo/js/Valine.min.js')
     };
 });
 
