@@ -16,6 +16,9 @@ common:
         other: 'Trang'
     prev: 'Trước'
     next: 'Sau'
+navbar:
+    appearance: 'Chuyển chế độ tối'
+    menu: 'Menu'
 widget:
     follow: 'Theo dõi'
     recents: 'Gần đây'
@@ -25,15 +28,23 @@ widget:
     subscribe: 'Theo dõi'
     adsense: 'Quảng cáo'
     followit: 'follow.it'
+    more: 'Xem thêm'
+    github_calendar: 'Đóng góp GitHub'
+    github_calendar_loading: 'Đang tải đóng góp…'
+    github_calendar_error: 'Không thể tải đóng góp. Xem trên GitHub.'
 article:
     created_at: 'Đã đăng&nbsp;%s'
     updated_at: 'Đã cập nhật&nbsp;%s'
     more: 'Đọc thêm'
     comments: 'Bình luận'
+    copy: 'Sao chép'
+    copied: 'Đã sao chép!'
     read_time: '%s đọc'
     word_count:
         one: 'Khoảng %d từ'
         other: 'Khoảng %d từ'
+    outdated_on: 'Bài viết này được cập nhật lần cuối vào %s. Một số nội dung có thể đã lỗi thời.'
+    outdated_ago: 'Bài viết này được cập nhật lần cuối %s. Một số nội dung có thể đã lỗi thời.'
     licensing:
         author: 'Author'
         created_at: 'Posted on'

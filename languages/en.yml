@@ -16,6 +16,9 @@ common:
         other: 'Pages'
     prev: 'Previous'
     next: 'Next'
+navbar:
+    menu: 'Menu'
+    appearance: 'Toggle dark mode'
 widget:
     follow: 'Follow'
     recents: 'Recents'
@@ -25,15 +28,23 @@ widget:
     subscribe: 'Subscribe'
     adsense: 'Advertisement'
     followit: 'follow.it'
+    more: 'More'
+    github_calendar: 'GitHub Contributions'
+    github_calendar_loading: 'Loading contributions…'
+    github_calendar_error: 'Could not load contributions. Open GitHub to view them.'
 article:
     created_at: 'Posted&nbsp;%s'
     updated_at: 'Updated&nbsp;%s'
     more: 'Read more'
     comments: 'Comments'
+    copy: 'Copy'
+    copied: 'Copied!'
     read_time: '%s read'
     word_count:
         one: 'About %d word'
         other: 'About %d words'
+    outdated_on: 'This post was last updated on %s. Some of its content may be outdated.'
+    outdated_ago: 'This post was last updated %s. Some of its content may be outdated.'
     licensing:
         author: 'Author'
         created_at: 'Posted on'

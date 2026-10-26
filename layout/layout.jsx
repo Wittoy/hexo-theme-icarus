@@ -1,11 +1,21 @@
 const { Component } = require('inferno');
 const classname = require('hexo-component-inferno/lib/util/classname');
+const { getAppearance } = require('../include/util/appearance');
 const Head = require('./common/head');
 const Navbar = require('./common/navbar');
 const Widgets = require('./common/widgets');
 const Footer = require('./common/footer');
 const Scripts = require('./common/scripts');
 const Search = require('./common/search');
+const OutdatedBrowser = require('./plugin/outdated_browser');
+
+/**
+ * BCP 47 language tag for <html lang>, keeping the region (zh-CN, pt-BR).
+ */
+function getLanguageTag(language) {
+    const lang = Array.isArray(language) ? language[0] : language;
+    return typeof lang === 'string' ? lang.replace(/_/g, '-') : '';
+}
 
 module.exports = class extends Component {
     render() {
@@ -13,10 +23,17 @@ module.exports = class extends Component {
 
         const language = page.lang || page.language || config.language;
         const columnCount = Widgets.getColumnCount(config.widgets, config, page);
+        // Shared appearance for theme colors, browser controls and third-party plugins.
+        const appearance = getAppearance(config);
 
-        return <html lang={language ? language.substr(0, 2) : ''}>
+        return <html lang={getLanguageTag(language)} data-appearance-mode={appearance} data-appearance={appearance === 'light' ? null : appearance}>
             <Head site={site} config={config} helper={helper} page={page} />
             <body class={`is-${columnCount}-column`}>
+                <div id="browser-notice" data-pjax>
+                    {config.plugins && config.plugins.outdated_browser
+                        ? <OutdatedBrowser site={site} config={config} page={page} helper={helper} plugin={config.plugins.outdated_browser} head={false} />
+                        : null}
+                </div>
                 <Navbar config={config} helper={helper} page={page} />
                 <section class="section">
                     <div class="container">

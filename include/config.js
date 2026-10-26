@@ -1,18 +1,24 @@
-/* eslint no-process-exit: "off" */
+/* eslint n/no-process-exit: "off" */
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
 const crypto = require('crypto');
-const logger = require('hexo-log')();
+const createLogger = require('hexo-log');
+const { deepMerge } = require('hexo-util');
 const yaml = require('hexo-component-inferno/lib/util/yaml');
 const { Migrator } = require('hexo-component-inferno/lib/core/migrate');
 const { SchemaLoader } = require('hexo-component-inferno/lib/core/schema');
 const { yellow } = require('./util/console');
+const { diagnoseThemeConfig, diagnoseSiteConfig } = require('./config/diagnostics');
+
+const logger = createLogger.default();
 
 function loadThemeConfig(hexo, cfgPaths) {
-    const configs = cfgPaths.map(cfgPath => fs.readFileSync(cfgPath))
-        .map(cfgPath => yaml.parse(cfgPath));
-    return Object.assign({}, ...configs, hexo.config.theme_config);
+    // Merge the configuration files the same way Hexo does when rendering, so that what is
+    // validated and migrated here is exactly the configuration the theme will receive.
+    const configs = cfgPaths.map(cfgPath => yaml.parse(fs.readFileSync(cfgPath)));
+    return configs.concat(hexo.config.theme_config)
+        .filter(cfg => cfg && typeof cfg === 'object')
+        .reduce((result, cfg) => deepMerge(result, cfg), {});
 }
 
 function generateThemeConfigFile(schema, cfgPath) {
@@ -75,23 +81,14 @@ function checkConfig(hexo) {
                 logger.info(`Theme configurations are written to ${yellow(themeSiteCfg)}.`);
 
                 generateThemeConfigFile(schema, themeSiteCfgExample);
-                logger.info(`Example configurations is at ${yellow(themeSiteCfgExample)}.`);
+                logger.info(`An example configuration is at ${yellow(themeSiteCfgExample)}.`);
             }
         }
 
-        const validation = schema.validate(cfg);
-        if (validation !== true) {
-            logger.warn('Theme configurations failed one or more checks.');
-            logger.warn('Icarus may still run, but you will encounter unexcepted results.');
-            logger.warn('Here is some information for you to correct the configuration file.');
-            logger.warn(util.inspect(validation));
-        }
+        diagnoseThemeConfig(cfg, schema).forEach(warning => logger.warn(warning));
 
         const rootCfg = yaml.parse(fs.readFileSync(siteCfgFile));
-        if (rootCfg.theme_config) {
-            logger.warn(`"theme_config" found in ${yellow(siteCfgFile)}.`);
-            logger.warn(`Please remove theme configurations from ${yellow(siteCfgFile)}.`);
-        }
+        diagnoseSiteConfig(rootCfg, siteCfgFile).forEach(warning => logger.warn(warning));
     }
 }
 

@@ -1,8 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "/common/widgets.json",
-    "description": "Sidebar widget configurations\nhttp://ppoffice.github.io/hexo-theme-icarus/categories/Widgets/",
+    "description": "Sidebar widget configurations. Set to null to disable all widgets\nhttp://ppoffice.github.io/hexo-theme-icarus/categories/Widgets/",
     "type": "array",
+    "nullable": true,
     "items": {
         "type": "object",
         "properties": {
@@ -35,13 +36,23 @@
                 "$ref": "/widget/tags.json"
             },
             {
-                "$ref": "/widget/subscribe_email.json"
+                "$ref": "/widget/github_calendar.json"
             },
             {
                 "$ref": "/widget/adsense.json"
             },
             {
-                "$ref": "/widget/followit.json"
+                "$comment": "The generated configuration only has the first of the two, as the FeedBurner widget is deprecated",
+                "description": "Follow.it email subscription widget configurations",
+                "type": "object",
+                "oneOf": [
+                    {
+                        "$ref": "/widget/followit.json"
+                    },
+                    {
+                        "$ref": "/widget/subscribe_email.json"
+                    }
+                ]
             }
         ],
         "required": [

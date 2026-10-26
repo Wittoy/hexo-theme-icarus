@@ -16,6 +16,9 @@ common:
         other: '页面'
     prev: '上一页'
     next: '下一页'
+navbar:
+    menu: '菜单'
+    appearance: '切换深色模式'
 widget:
     follow: '关注我'
     recents: '最新文章'
@@ -25,15 +28,23 @@ widget:
     subscribe: '订阅'
     adsense: '广告'
     followit: 'follow.it'
+    more: '更多'
+    github_calendar: 'GitHub 贡献日历'
+    github_calendar_loading: '正在加载贡献记录…'
+    github_calendar_error: '贡献记录加载失败，可点击下方链接前往 GitHub 查看。'
 article:
     created_at: '%s发表'
     updated_at: '%s更新'
     more: '阅读更多'
     comments: '评论'
+    copy: '复制'
+    copied: '已复制！'
     read_time: '%s读完'
     word_count:
         one: '大约%d个字'
         other: '大约%d个字'
+    outdated_on: '本文最后更新于%s，其中的部分内容可能已经过时。'
+    outdated_ago: '本文最后更新于%s，其中的部分内容可能已经过时。'
     licensing:
         author: '作者'
         created_at: '发布于'

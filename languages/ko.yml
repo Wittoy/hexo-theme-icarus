@@ -16,6 +16,9 @@ common:
         other: '페이지'
     prev: '이전'
     next: '다음'
+navbar:
+    appearance: '다크 모드 전환'
+    menu: '메뉴'
 widget:
     follow: '팔로우'
     recents: '최근 글'
@@ -25,15 +28,23 @@ widget:
     subscribe: '구독'
     adsense: '광고'
     followit: 'follow.it'
+    more: '더 보기'
+    github_calendar: 'GitHub 기여'
+    github_calendar_loading: '기여 기록을 불러오는 중…'
+    github_calendar_error: '기여 기록을 불러올 수 없습니다. GitHub에서 확인하세요.'
 article:
     created_at: '%s&nbsp;게시 됨'
     updated_at: '%s&nbsp;업데이트 됨'
     more: '자세히 보기'
     comments: '댓글'
+    copy: '복사'
+    copied: '복사됨!'
     read_time: '%s안에 읽기'
     word_count:
         one: '약 %d 단어'
         other: '약 %d 단어'
+    outdated_on: '이 글은 %s에 마지막으로 수정되었습니다. 일부 내용이 오래되었을 수 있습니다.'
+    outdated_ago: '이 글은 %s에 마지막으로 수정되었습니다. 일부 내용이 오래되었을 수 있습니다.'
     licensing:
         author: 'Author'
         created_at: 'Posted on'

@@ -13,9 +13,39 @@ figure.highlight
     &.folded
         .highlight-body
             height: 0
-    
+
+    // A folded block with a preview (article.highlight.fold_preview) shows its first lines.
+    // They fade out into the background of the block, whatever its theme, through a mask.
+    &.folded.fold-preview
+        .highlight-body
+            height: auto
+            max-height: calc(var(--fold-preview-lines) * 1.5rem + .5em)
+            overflow: hidden
+            cursor: pointer
+            -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 3rem), transparent)
+            mask-image: linear-gradient(to bottom, #000 calc(100% - 3rem), transparent)
+
     .copy
         opacity: .7
+        // the copy control is a <button>: reset the native button look
+        padding: 0 .75em
+        border: none
+        background: none
+        font: inherit
+        color: inherit
+        cursor: pointer
+
+        &:hover, &:focus-visible, &.is-copied
+            opacity: 1
+
+    // where the pointer can hover, only show the copy button of the hovered (or focused) block;
+    // opacity keeps it in the tab order and the accessibility tree, touch screens always show it
+    @media (hover: hover) and (pointer: fine)
+        .copy
+            transition: opacity .2s ease
+
+        &:not(:hover):not(:focus-within) .copy:not(.is-copied)
+            opacity: 0
 
     pre, table tr:hover
         color: inherit
@@ -89,6 +119,10 @@ figure.highlight
         vertical-align: inherit
         min-width: inherit
         border-radius: inherit
+
+figure.highlight.foldable
+  div.level-left
+    cursor: pointer  // clicking the codeblock filename can toggle folding 
 
 /* ---------------------------------
  *        Fix Gist Snippet

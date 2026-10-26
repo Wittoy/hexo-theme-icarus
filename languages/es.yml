@@ -17,6 +17,9 @@ common:
         other: 'Páginas'
     prev: 'Anterior'
     next: 'Siguiente'
+navbar:
+    appearance: 'Alternar modo oscuro'
+    menu: 'Menú'
 widget:
     follow: 'SEGUIR'
     recents: 'Recientes'
@@ -26,15 +29,23 @@ widget:
     subscribe: 'Suscribir'
     adsense: 'Anuncio'
     followit: 'follow.it'
+    more: 'Más'
+    github_calendar: 'Contribuciones en GitHub'
+    github_calendar_loading: 'Cargando contribuciones…'
+    github_calendar_error: 'No se pudieron cargar las contribuciones. Ver en GitHub.'
 article:
     created_at: 'Publicado hace&nbsp;%s'
     updated_at: 'Actualizado hace&nbsp;%s'
     more: 'Leer más'
     comments: 'Comentarios'
+    copy: 'Copiar'
+    copied: '¡Copiado!'
     read_time: '%s de lectura'
     word_count:
         one: 'Aproximadamente %d palabra'
         other: 'Aproximadamente %d palabras'
+    outdated_on: 'Este artículo se actualizó por última vez el %s. Parte de su contenido puede estar desactualizado.'
+    outdated_ago: 'Este artículo se actualizó por última vez %s. Parte de su contenido puede estar desactualizado.'
     licensing:
         author: 'Author'
         created_at: 'Posted on'

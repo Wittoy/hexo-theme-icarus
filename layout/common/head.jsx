@@ -3,6 +3,8 @@ const MetaTags = require('hexo-component-inferno/lib/view/misc/meta');
 const WebApp = require('hexo-component-inferno/lib/view/misc/web_app');
 const OpenGraph = require('hexo-component-inferno/lib/view/misc/open_graph');
 const StructuredData = require('hexo-component-inferno/lib/view/misc/structured_data');
+const { getAppearance } = require('../../include/util/appearance');
+const { getHighlightThemes, getHeadImages } = require('../../include/util/head');
 const Plugins = require('./plugins');
 
 function getPageTitle(page, siteTitle, helper) {
@@ -28,6 +30,32 @@ function getPageTitle(page, siteTitle, helper) {
     return [title, siteTitle].filter(str => typeof str !== 'undefined' && str.trim() !== '').join(' - ');
 }
 
+/** Origins of the font files of stylesheets hosted on another origin than the files */
+const FONT_FILE_ORIGINS = {
+    'https://fonts.googleapis.com': 'https://fonts.gstatic.com'
+};
+
+/** The origin of an absolute HTTP(S) URL, or null for relative URLs. */
+function getOrigin(url) {
+    try {
+        const { protocol, origin } = new URL(url);
+        return protocol === 'http:' || protocol === 'https:' ? origin : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+/**
+ * Origins of the icon and web font files, which are only requested once their stylesheets are
+ * loaded and parsed: connecting to them in advance takes the connection off the critical path.
+ * The icon fonts are hosted next to their stylesheet, the web fonts on another origin.
+ */
+function getFontOrigins(iconCssUrl, fontCssUrl, siteUrl) {
+    const origins = [getOrigin(iconCssUrl), FONT_FILE_ORIGINS[getOrigin(fontCssUrl)]];
+    const siteOrigin = getOrigin(siteUrl);
+    return origins.filter((origin, i) => origin && origin !== siteOrigin && origins.indexOf(origin) === i);
+}
+
 module.exports = class extends Component {
     render() {
         const { site, config, helper, page } = this.props;
@@ -35,10 +63,9 @@ module.exports = class extends Component {
         const {
             url,
             head = {},
-            article,
-            highlight,
             variant = 'default'
         } = config;
+        const appearance = getAppearance(config);
         const {
             meta = [],
             manifest = {},
@@ -52,66 +79,27 @@ module.exports = class extends Component {
         const noIndex = helper.is_archive() || helper.is_category() || helper.is_tag();
 
         const language = page.lang || page.language || config.language;
+        // display=swap shows the text in a fallback font until the web fonts are loaded, instead of hiding it
         const fontCssUrl = {
-            default: fontcdn('Ubuntu:wght@400;600&family=Source+Code+Pro', 'css2'),
-            cyberpunk: fontcdn('Oxanium:wght@300;400;600&family=Roboto+Mono', 'css2')
+            default: fontcdn('Ubuntu:wght@400;600&family=Source+Code+Pro&display=swap', 'css2'),
+            cyberpunk: fontcdn('Oxanium:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap', 'css2'),
+            m3e: fontcdn('Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;500&family=Noto+Sans+SC:wght@100..900&display=swap', 'css2')
         };
 
-        let hlTheme, images;
-        if (highlight && highlight.enable === false) {
-            hlTheme = null;
-        } else if (article && article.highlight && article.highlight.theme) {
-            hlTheme = article.highlight.theme;
-        } else {
-            hlTheme = 'atom-one-light';
-        }
-
-        if (typeof page.og_image === 'string') {
-            images = [page.og_image];
-        } else if (typeof page.cover === 'string') {
-            images = [url_for(page.cover)];
-        } else if (typeof page.thumbnail === 'string') {
-            images = [url_for(page.thumbnail)];
-        } else if (article && typeof article.og_image === 'string') {
-            images = [article.og_image];
-        } else if (page.content && page.content.includes('<img')) {
-            let img;
-            images = [];
-            const imgPattern = /<img [^>]*src=['"]([^'"]+)([^>]*>)/gi;
-            while ((img = imgPattern.exec(page.content)) !== null) {
-                images.push(img[1]);
-            }
-        } else {
-            images = [url_for('/img/og_image.png')];
-        }
+        const hlThemes = getHighlightThemes(config, appearance);
+        const { openGraphImages, structuredImages } = getHeadImages(page, config, url_for);
 
         let adsenseClientId = null;
         if (Array.isArray(config.widgets)) {
-            const widget = config.widgets.find(widget => widget.type === 'adsense');
+            const widget = config.widgets.find(widget => widget && widget.type === 'adsense');
             if (widget) {
                 adsenseClientId = widget.client_id;
             }
         }
 
-        let openGraphImages = images;
-        if ((typeof open_graph === 'object' && open_graph !== null)
-            && ((Array.isArray(open_graph.image) && open_graph.image.length > 0) || typeof open_graph.image === 'string')) {
-            openGraphImages = open_graph.image;
-        } else if ((Array.isArray(page.photos) && page.photos.length > 0) || typeof page.photos === 'string') {
-            openGraphImages = page.photos;
-        }
-
-        let structuredImages = images;
-        if ((typeof structured_data === 'object' && structured_data !== null)
-            && ((Array.isArray(structured_data.image) && structured_data.image.length > 0) || typeof structured_data.image === 'string')) {
-            structuredImages = structured_data.image;
-        } else if ((Array.isArray(page.photos) && page.photos.length > 0) || typeof page.photos === 'string') {
-            structuredImages = page.photos;
-        }
-
         let followItVerificationCode = null;
         if (Array.isArray(config.widgets)) {
-            const widget = config.widgets.find(widget => widget.type === 'followit');
+            const widget = config.widgets.find(widget => widget && widget.type === 'followit');
             if (widget) {
                 followItVerificationCode = widget.verification_code;
             }
@@ -119,7 +107,10 @@ module.exports = class extends Component {
 
         return <head>
             <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            {/* Restore the visitor's choice before styles and comment initializers run. */}
+            <script src={url_for('/js/appearance.js')}></script>
+            {appearance !== 'light' ? <meta name="color-scheme" content={appearance === 'auto' ? 'light dark' : 'dark'} /> : null}
             {noIndex ? <meta name="robots" content="noindex" /> : null}
             {meta && meta.length ? <MetaTags meta={meta} /> : null}
 
@@ -133,7 +124,8 @@ module.exports = class extends Component {
                 name={manifest.name || config.title} />
 
             {typeof open_graph === 'object' && open_graph !== null ? <OpenGraph
-                type={open_graph.type || (is_post(page) ? 'article' : 'website')}
+                // "blog", which generated configurations had, is not an Open Graph type, so ignore it
+                type={(open_graph.type !== 'blog' && open_graph.type) || (is_post(page) ? 'article' : 'website')}
                 title={open_graph.title || page.title || config.title}
                 date={page.date}
                 updated={page.updated}
@@ -147,6 +139,7 @@ module.exports = class extends Component {
                 twitterId={open_graph.twitter_id}
                 twitterCard={open_graph.twitter_card}
                 twitterSite={open_graph.twitter_site}
+                // Compatibility only: the component ignores Google+ and warns once for non-empty values.
                 googlePlus={open_graph.google_plus}
                 facebookAdmins={open_graph.fb_admins}
                 facebookAppId={open_graph.fb_app_id} /> : null}
@@ -165,10 +158,14 @@ module.exports = class extends Component {
             {canonical_url ? <link rel="canonical" href={canonical_url} /> : null}
             {rss ? <link rel="alternate" href={url_for(rss)} title={config.title} type="application/atom+xml" /> : null}
             {favicon ? <link rel="icon" href={url_for(favicon)} /> : null}
+            {/* Fonts are requested with CORS, which does not reuse the connections of other requests */}
+            {getFontOrigins(iconcdn(), fontCssUrl[variant], url).map(origin => <link rel="preconnect" href={origin} crossorigin="anonymous" />)}
             <link rel="stylesheet" href={iconcdn()} />
-            {hlTheme ? <link rel="stylesheet" href={cdn('highlight.js', '9.12.0', 'styles/' + hlTheme + '.css')} /> : null}
-            <link rel="stylesheet" href={fontCssUrl[variant]} />
-            <link rel="stylesheet" href={url_for('/css/' + variant + '.css')} />
+            <link rel="stylesheet" href={url_for('/css/github-calendar.css')} />
+            {hlThemes.map(([theme, media]) => <link data-pjax rel="stylesheet" href={cdn('highlight.js', '11.11.1', 'styles/' + theme + '.css')} media={media} />)}
+            <script dangerouslySetInnerHTML={{ __html: 'window.IcarusAppearance.sync();' }}></script>
+            <link data-variant rel="stylesheet" href={fontCssUrl[variant]} />
+            <link data-variant rel="stylesheet" href={url_for('/css/' + variant + '.css')} />
             <Plugins site={site} config={config} helper={helper} page={page} head={true} />
 
             {adsenseClientId ? <script data-ad-client={adsenseClientId}

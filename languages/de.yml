@@ -16,6 +16,9 @@ common:
         other: 'Pages'
     prev: 'Zurück'
     next: 'Weiter'
+navbar:
+    appearance: 'Dunkelmodus umschalten'
+    menu: 'Menü'
 widget:
     follow: 'Folgen'
     recents: 'Letzte Einträge'
@@ -25,15 +28,23 @@ widget:
     subscribe: 'Abonnieren'
     adsense: 'Werbung'
     followit: 'follow.it'
+    more: 'Mehr'
+    github_calendar: 'GitHub-Beiträge'
+    github_calendar_loading: 'Beiträge werden geladen…'
+    github_calendar_error: 'Beiträge konnten nicht geladen werden. Auf GitHub ansehen.'
 article:
     created_at: 'Gepostet vor&nbsp;%s'
     updated_at: 'Aktualisiert vor&nbsp;%s'
     more: 'Mehr lesen'
     comments: 'Kommentare'
+    copy: 'Kopieren'
+    copied: 'Kopiert!'
     read_time: '%s lesen'
     word_count:
         one: 'Über %d Wort'
         other: 'Über %d Wörter'
+    outdated_on: 'Dieser Beitrag wurde zuletzt am %s aktualisiert. Einige Inhalte sind möglicherweise veraltet.'
+    outdated_ago: 'Dieser Beitrag wurde zuletzt %s aktualisiert. Einige Inhalte sind möglicherweise veraltet.'
     licensing:
         author: 'Author'
         created_at: 'Posted on'

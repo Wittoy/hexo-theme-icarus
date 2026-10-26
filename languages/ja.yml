@@ -16,6 +16,9 @@ common:
         other: 'ページ'
     prev: '前'
     next: '次'
+navbar:
+    appearance: 'ダークモードを切り替え'
+    menu: 'メニュー'
 widget:
     follow: 'フォローする'
     recents: '最近の記事'
@@ -25,15 +28,23 @@ widget:
     subscribe: '購読する'
     adsense: '広告'
     followit: 'follow.it'
+    more: 'もっと見る'
+    github_calendar: 'GitHub コントリビューション'
+    github_calendar_loading: 'コントリビューションを読み込み中…'
+    github_calendar_error: '読み込めませんでした。GitHub で確認してください。'
 article:
     created_at: '%sに投稿'
     updated_at: '%sに更新'
     more: '続きを読む'
     comments: 'コメント'
+    copy: 'コピー'
+    copied: 'コピーしました'
     read_time: '%sで読む'
     word_count:
         one: '約%d語'
         other: '約%d語'
+    outdated_on: 'この記事は%sに最終更新されました。内容が古くなっている可能性があります。'
+    outdated_ago: 'この記事は%sに最終更新されました。内容が古くなっている可能性があります。'
     licensing:
         author: 'Author'
         created_at: 'Posted on'
